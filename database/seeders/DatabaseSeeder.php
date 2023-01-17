@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create([
-            'name' => 'Tenant Admin',
-            'email' => 'admin@admin.com'
+            'email' => 'admin@central.com'
         ]);
 
         $tenant1 = Tenant::create(['id' => 'foo']);
@@ -28,7 +27,9 @@ class DatabaseSeeder extends Seeder
         $tenant2->domains()->create(['domain' => 'bar.localhost']);
 
         Tenant::all()->runForEach(function () {
-            User::factory()->create();
+            User::factory()->create([
+                'email' => 'admin@tenant.com'
+            ]);
         });
     }
 }
